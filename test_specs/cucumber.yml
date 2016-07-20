@@ -1,0 +1,2 @@
+parallel: TARGET=local --format html --out output/MoveIdeaReport381(<%= ENV['TEST_ENV_NUMBER'] %>)_2015-XX-XX.html
+default: TARGET=local
