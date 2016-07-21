@@ -90,49 +90,11 @@ Before do |scenario|
   puts "TC Start time: #{Time.now.strftime('%m/%d/%Y %H:%M%p')}"
 
   #region defined screen pages
-  #@loginpage = LoginPage.new
-  #@activitypage = ActivityPage.new
   @mainpage = MainPage.new
   @URL = URL.new
   @loginpage = LoginPage.new
   @users = Users.new
-  #@viewideapage = ViewIdeaPage.new
-  #@viewideaspage = ViewIdeasPage.new
-  #@postideapage = PostIdeaPage.new
-  #@ideamanagementpage = IdeaManagementPage.new
-  #@taskspage = TasksPage.new
-  #@userspage = UsersPage.new
-  #@mergecombinecopyideapage = MergeCombineCopyIdeaPage.new
-  #@createcommunitypage = CreateCommunityPage.new
-  #@changeownerpage = ChangeOwnerPage.new
-  #@administrationpage = AdministrationPage.new
-  #@dpapage = DPAPage.new
-  #@legalpage = LegalPage.new
-  #@securitypage = SecurityPage.new
-  #@permissionsettingspage = PermissionSettingsPage.new
-  #@homepage = HomePage.new
-  #@users = Users.new
   @communities = Communities.new
-  #@generalreview = GeneralReview.new
-  #@evaluations = Evaluations.new
-  #@emailtemplatespage = EmailTemplatesPage.new
-  #@userexperiencemanagementpage = UserExperienceManagementPage.new
-  #@turnonofffeaturespage = TurnOnOffFeaturesPage.new
-  #@myprofilepage = MyProfilePage.new
-  #@challengespage = ChallengesPage.new
-  #@graduationthresholdspage = GraduationThresholdsPage.new
-  #@communitiespage = CommunitiesPage.new
-  #@ideatemplatepage = IdeaTemplatePage.new
-  #@myinboxpage = MyInboxPage.new
-  #@storepage = StorePage.new
-  #@blogspage = BlogsPage.new
-  #@ideapopuppage = IdeaPopupPage.new
-  #@leaderboardpage = LeaderboardPage.new
-  #@innovationmarketpage = InnovationMarketPage.new
-  #@categorypage = CategoryPage.new
-  #@util = Util.new
-  #@evaluationtemplatespage = EvaluationTemplatesPage.new
-  #endregion
 end
 
 After do |scenario|

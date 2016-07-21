@@ -1460,10 +1460,12 @@ Then(/^I verify the "([^"]*)" page is displayed$/) do |page|
       fail(ArgumentError.new('The Facebook home page is not displayed!')) unless displayed
 
     when 'Gmail Home' then
+      #verify the UI as well as the URL
       fail(ArgumentError.new('The Gmail home page is not displayed!')) unless
           current_url.include?('/#inbox')
 
     when 'LI Home' then
+      #verify the UI as well as the URL
       fail(ArgumentError.new('The Forgot Username page is not displayed!')) unless
           current_url.include?('/nhome/')
 
