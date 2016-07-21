@@ -93,6 +93,9 @@ Before do |scenario|
   #@loginpage = LoginPage.new
   #@activitypage = ActivityPage.new
   @mainpage = MainPage.new
+  @URL = URL.new
+  @loginpage = LoginPage.new
+  @users = Users.new
   #@viewideapage = ViewIdeaPage.new
   #@viewideaspage = ViewIdeasPage.new
   #@postideapage = PostIdeaPage.new

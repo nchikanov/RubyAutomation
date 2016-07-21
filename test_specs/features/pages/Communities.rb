@@ -13,10 +13,6 @@ class Communities
 
   @@communities['Main Site']['url'] = "https://www.#{$versionUrl}.spigit.com/User/Login"
   @@communities['Wrong Site']['url'] = "https://nosite.#{$versionUrl}.spigit.com/User/Login"
-  @@communities['google']['url'] = "https://www.google.com/"
-  @@communities['bing']['url'] = "https://www.bing.com/"
-  @@communities['duckduckgo']['url'] = "https://www.duckduckgo.com/"
-
 
   def getCommunityUrl(community)
       @@communities[community]['url']

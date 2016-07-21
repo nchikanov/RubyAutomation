@@ -1447,13 +1447,25 @@ Then(/^I verify the "([^"]*)" page is displayed$/) do |page|
 
       #get a new xpath
     when 'cookies' then
-      displayed = has_xpath? ".//*[contains(@href,'puppies') and text()='Images for puppies']"
-      fail(ArgumentError.new('The result of puppies is not displayed!')) unless displayed
+      displayed = has_xpath? ".//span[@class='metabar__term'][contains(text(), 'cookies')]"
+      fail(ArgumentError.new('The result of cookies is not displayed!')) unless displayed
 
       #get a new xpath
     when 'ice cream' then
-      displayed = has_xpath? ".//*[contains(@href,'puppies') and text()='Images for puppies']"
-      fail(ArgumentError.new('The result of puppies is not displayed!')) unless displayed
+      displayed = has_xpath? ".//a[contains(@href,'ice%20cream')]"
+      fail(ArgumentError.new('The result of ice cream is not displayed!')) unless displayed
+
+    when 'FB Home' then
+      displayed = has_xpath? ".//a[@class='fbxWelcomeBoxBlock fbxWelcomeBoxSmallLeft fbxWelcomeBoxProfilePicBlock _8o _8r lfloat _ohe']"
+      fail(ArgumentError.new('The Facebook home page is not displayed!')) unless displayed
+
+    when 'Gmail Home' then
+      fail(ArgumentError.new('The Gmail home page is not displayed!')) unless
+          current_url.include?('/#inbox')
+
+    when 'LI Home' then
+      fail(ArgumentError.new('The Forgot Username page is not displayed!')) unless
+          current_url.include?('/nhome/')
 
     when 'Change Password' then
       sleep 2
@@ -1631,15 +1643,24 @@ And(/^I update the site's title to "([^"]*)"$/) do |new_title|
 end
 
 Given(/^I navigate to the external "([^"]*)" site$/) do |site|
-  @mainpage.setPageUrl(@communities.getCommunityUrl(site))
+  @mainpage.setPageUrl(@URL.getUrl(site))
+  @mainpage.setCurrentSite(site)
 end
 
 When(/^I fill in the "([^"]*)" field with "([^"]*)" value$/) do |arg1, value|
   @mainpage.fill_value(arg1, value)
 end
 
-Then(/^I verify that when I search for "([^"]*)" value, "([^"]*)" site returns results$/) do |some, search_url|
+When(/^I login with the given "([^"]*)"$/) do |user|
+  @loginpage.fillValue('Email', @users.getUser(user, 'email'))
 
-  puts "The search engine produced results related to the keyword! Hooray!"
+  next_button_exists = has_xpath? ".//*[@id='next']"
+  if next_button_exists
+    @loginpage.clickButton('Next')
+    @loginpage.fillValue('Password', @users.getUser(user, 'password'))
+  end
+  @loginpage.fillValue('Password', @users.getUser(user, 'password'))
+  @loginpage.clickButton('Sign In')
 
+  @mainpage.setCurrentUser(user)
 end
