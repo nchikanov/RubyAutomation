@@ -7,7 +7,7 @@ require 'rspec/expectations'
 require 'rspec/matchers'
 require 'site_prism'
 require 'site_prism/waiter'
-#require 'gmail'
+require 'gmail'
 #require 'forgery'
 #require_relative 'sauce_setup'
 
@@ -20,71 +20,45 @@ if is_windows
 end
 =end
 
-# Browsers: IE, CH, FF
+# Browsers: IE, CH, FF, SA
 $browser = 'FF'
 
-if ENV['TARGET'] == 'local'
-  Capybara.default_driver = :selenium
-  Capybara.javascript_driver = :webkit  #:chrome
+Capybara.default_driver = :selenium
+Capybara.javascript_driver = :webkit  #:chrome
+Capybara.default_max_wait_time = 10
 
-  case $browser
-    when 'CH' then
-      Capybara.register_driver :chrome do |app|
-        caps = Selenium::WebDriver::Remote::Capabilities.chrome('chromeOptions' => {'args' => [ '--disable-extensions' ]})
-        Capybara::Selenium::Driver.new(app, :browser => :chrome, :desired_capabilities => caps)
-      end
-      Capybara.default_driver = :chrome
+case $browser
+  when 'CH'
+  then
+    Capybara.register_driver :selenium do |app|
+      # Capybara::Selenium::Driver.new(app, :browser => :chrome, :profile=> 'default')
+      caps = Selenium::WebDriver::Remote::Capabilities.chrome("chromeOptions" => {"args" => [ "--disable-extensions" ]})
+      Capybara::Selenium::Driver.new(app, :browser => :chrome, :desired_capabilities => caps)
+    end
+    Capybara.default_driver = :selenium
 
-    when 'IE' then
-      Capybara.register_driver :selenium do |app|
-        Capybara::Selenium::Driver.new(app, :browser => :internet_explorer)
-        # caps = Selenium::WebDriver::Remote::Capabilities.internet_explorer({:requireWindowFocus => true, :enablePersistentHover => false})
-        # Capybara::Selenium::Driver.new(app, :browser => :internet_explorer, :desired_capabilities => caps)
-      end
-      Capybara.default_driver = :selenium
+  when 'IE'
+  then
+    Capybara.register_driver :selenium do |app|
+      Capybara::Selenium::Driver.new(app, :browser => :internet_explorer)
+    end
+    Capybara.default_driver = :selenium
 
-    when 'FF' then
-      Capybara.register_driver :selenium do |app|
-        #Capybara::Selenium::Driver.new(app, :browser => :firefox)
-        caps = Selenium::WebDriver::Remote::Capabilities.firefox(:unexpectedAlertBehaviour => 'ignore')
-        Capybara::Selenium::Driver.new(app, :browser => :firefox, :desired_capabilities => caps)
-      end
-      Capybara.default_driver = :selenium
-  end
+  when 'FF'
+  then
+    Capybara.register_driver :selenium do |app|
+      Capybara::Selenium::Driver.new(app, :browser => :firefox, :profile => 'default')
+    end
+    Capybara.default_driver = :selenium
 
-else
-  ENV['SAUCE_USERNAME']   = 'spigit_test'
-  ENV['SAUCE_ACCESS_KEY'] = '78a2bcc7-1025-4bb0-96b2-82e647616e97'
-# desired_capabilities = Selenium::WebDriver::Remote::Capabilities.chrome
-# desired_capabilities.version = '45'
-# desired_capabilities.platform = 'Windows 7'
-# desired_capabilities[:name] = 'Testing Selenium with Ruby on Sauce'
-# SimpleSauce.desired_capabilities = desired_capabilities
+  when 'SA'
+  then
+    Capybara.register_driver :selenium do |app|
+      Capybara::Selenium::Driver.new(app, :browser => :safari)
+    end
+    Capybara.default_driver = :selenium
 
-  Around do |scenario, block|
-    block.call
-    ::Capybara.current_session.driver.quit
-  end
-
-  Capybara.register_driver :light_sauce do |app|
-    Capybara::Selenium::Driver.new( app, SimpleSauce.webdriver_config )
-  end
-
-  Capybara.default_driver = :light_sauce
-  Capybara.javascript_driver = :light_sauce
-
-  #Before '@sauce' do
-  # Capybara.current_driver = :light_sauce
-  #end
 end
-
-#Switch mode argument
-$devmod = false
-
-#Version
-$version = 390
-$versionUrl = "qa#{$version}automation"
-$timezone_USA = 'PDT' #PST/PDT
 
 Before do |scenario|
   puts "TC Start time: #{Time.now.strftime('%m/%d/%Y %H:%M%p')}"
@@ -94,7 +68,7 @@ Before do |scenario|
   @URL = URL.new
   @loginpage = LoginPage.new
   @users = Users.new
-  @communities = Communities.new
+  @util = Util.new
 end
 
 After do |scenario|

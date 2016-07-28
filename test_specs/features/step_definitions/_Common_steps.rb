@@ -26,9 +26,6 @@ end
 And(/^I click on the "([^"]*)" button$/) do |button|
   sleep 1
   @mainpage.clickButton(button)
-  if button == 'Post your Rating' or button == 'Task Update'
-    @generalreview.setIdeaReview(@mainpage.getCurrentIdea, @mainpage.getCurrentUser, @generalreview.getCurrentReview)
-  end
   sleep 1
 end
 
@@ -1462,12 +1459,12 @@ Then(/^I verify the "([^"]*)" page is displayed$/) do |page|
     when 'Gmail Home' then
       #verify the UI as well as the URL
       fail(ArgumentError.new('The Gmail home page is not displayed!')) unless
-          current_url.include?('/#inbox')
+          has_xpath? ".//span[@class='gb_3a gbii']"
 
     when 'LI Home' then
       #verify the UI as well as the URL
       fail(ArgumentError.new('The Forgot Username page is not displayed!')) unless
-          current_url.include?('/nhome/')
+          has_xpath? ".//*[@id='identity']/section/div/a[1]/img"
 
     when 'Change Password' then
       sleep 2
@@ -1570,7 +1567,7 @@ end
 
 And(/^I verify "([^"]*)" user received a "([^"]*)" email notification with "([^"]*)" content$/) do |user, subject, content|
   emailacc = @users.getUser(user,'email')
-  emailpsw = @users.getUser(user,'emailpsw')
+  emailpsw = @users.getUser(user,'password')
   match = emailacc[/\+(.*?)@/m]
   emailacc = emailacc.gsub(match,'@') unless match.nil? #retrieving mail w/o alias
   unless @util.mailHasContent(emailacc, emailpsw, subject, content, false)
@@ -1666,3 +1663,57 @@ When(/^I login with the given "([^"]*)"$/) do |user|
 
   @mainpage.setCurrentUser(user)
 end
+
+
+Given(/^I navigate to the external "([^"]*)" site and I create a new "([^"]*)" with birthday "([^"]*)" "([^"]*)" "([^"]*)" and "([^"]*)"$/) do |site, user, month, day, year, gender|
+  #Navigate
+  @mainpage.setPageUrl(@URL.getUrl(site))
+  @mainpage.setCurrentSite(site)
+
+  #Create User
+  @loginpage.fillValue('First Name', @users.getUser(user, 'firstname'))
+  @loginpage.fillValue('Last Name', @users.getUser(user, 'lastname'))
+  @loginpage.fillValue('New Email', @users.getUser(user, 'email'))
+  @loginpage.fillValue('New Email Repeat', @users.getUser(user, 'email'))
+  @loginpage.fillValue('New Password', @users.getUser(user, 'password'))
+
+  #Fill in Birthday
+  find(:xpath, ".//*[@id='month']/option[contains(text(), '#{month}')]").click
+  find(:xpath, ".//*[@id='day']/option[text() ='#{day}']").click
+  find(:xpath, ".//*[@id='year']/option[contains(text(), '#{year}')]").click
+
+  #Select Gender
+  if gender == 'M'
+    find(:xpath, ".//*[@id='u_0_f']").click
+  else
+    find(:xpath, ".//*[@id='u_0_e']").click
+    end
+
+  #Create New User
+  @loginpage.clickButton('Sign Up')
+
+  #Verify User was created Successfully
+  fail(ArgumentError.new("Facebook Account was not created successfully")) unless has_xpath? ".//div[@class='title fsl fwb fcb' and text() ='Step 1']"
+
+end
+
+When(/^I login to the "([^"]*)" with the given "([^"]*)"$/) do |site, user|
+  # Go to page
+  @mainpage.setPageUrl(@URL.getUrl(site))
+  @mainpage.setCurrentSite(site)
+
+  # Login
+  @loginpage.fillValue('Email', @users.getUser(user, 'email'))
+
+  next_button_exists = has_xpath? ".//*[@id='next']"
+  if next_button_exists
+    @loginpage.clickButton('Next')
+    @loginpage.fillValue('Password', @users.getUser(user, 'password'))
+  end
+  @loginpage.fillValue('Password', @users.getUser(user, 'password'))
+  @loginpage.clickButton('Sign In')
+
+  @mainpage.setCurrentUser(user)
+
+end
+
