@@ -13,4 +13,4 @@ Feature: Google Search
   | search_engine     | some           | result_nina |
   | google            | puppies        | puppies     |
   | bing              | ice cream      | ice cream   |
-  #| duckduckgo        | cookies        | cookies     |
+

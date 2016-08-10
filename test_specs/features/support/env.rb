@@ -45,11 +45,11 @@ case $browser
     Capybara.default_driver = :selenium
 
   when 'FF'
-  #then
-   # Capybara.register_driver :selenium do |app|
-      #Capybara::Selenium::Driver.new(app, :browser => :firefox, :profile => 'default')
-    #end
-   # Capybara.default_driver = :selenium
+  then
+    Capybara.register_driver :selenium do |app|
+      Capybara::Selenium::Driver.new(app, :browser => :firefox)
+    end
+    Capybara.default_driver = :selenium
 
   when 'SA'
   then
