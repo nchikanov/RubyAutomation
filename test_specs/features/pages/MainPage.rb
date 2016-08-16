@@ -1775,9 +1775,9 @@ class MainPage < SitePrism::Page
 
       #AmexTravel Flight
       when 'departure' then
-        dest_travel.set value
+        dest_travel.set value.upcase
       when 'arrival' then
-        arriv_travel.set value
+        arriv_travel.set value.upcase
 
       #Idea template editor
       when 'Text field - Label' then

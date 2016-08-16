@@ -1748,6 +1748,7 @@ And(/^I select a date from the datepicker on the "([^"]*)" section$/) do |date|
       datetopick = Date.today
   end
   @util.selectDateFromDatePicker(datetopick.strftime('%m/%d/%Y'))
+  sleep 1
 end
 
 
