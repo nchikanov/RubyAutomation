@@ -1717,3 +1717,53 @@ When(/^I login to the "([^"]*)" with the given "([^"]*)"$/) do |site, user|
 
 end
 
+Then(/^I select "([^"]*)" option from the "([^"]*)" dropdown menu$/) do |string, field|
+  case field
+    when 'first' then
+      find(:xpath, ".//*[@id='flight_search_flight_search_slices_attributes_0_departure_search_for']").click
+      @mainpage.selectItemInAutosuggest('airport1', string)
+    when 'second' then
+      find(:xpath, ".//*[@id='flight_search_flight_search_slices_attributes_0_arrival_search_for']").click
+      @mainpage.selectItemInAutosuggest('airport2', string)
+    when 'dept time' then
+      find(:xpath, ".//*[@id='flight_search_flight_search_slices_attributes_0_departure_hour_range_input']/a/span[1]").click
+      @mainpage.selectItemInAutosuggest(field, string)
+    when 'ret time' then
+      find(:xpath, ".//*[@id='flight_search_flight_search_slices_attributes_1_departure_hour_range_input']/a").click
+      @mainpage.selectItemInAutosuggest(field, string)
+    when 'fare class' then
+      find(:xpath, ".//*[@id='flight_search_cabin_type_input']/a").click
+      @mainpage.selectItemInAutosuggest(field, string)
+  end
+
+
+end
+
+And(/^I select a date from the datepicker on the "([^"]*)" section$/) do |date|
+  if date == 'dep'
+      datetopick = Date.today+7
+  elsif date == 'ret'
+      datetopick = Date.today+30
+  else
+      datetopick = Date.today
+  end
+  @util.selectDateFromDatePicker(datetopick.strftime('%m/%d/%Y'))
+end
+
+
+When(/^I click on the "([^"]*)" button with "([^"]*)", "([^"]*)", and "([^"]*)"$/) do |_, seniors, adults, children|
+  if seniors.to_i > 0
+    find(:xpath, ".//*[@id='flight_search_traveler_groups_seniors_input']/a").click
+    find(:xpath, "html/body/ul[8]/li/a[text()='#{seniors.to_i}']").click
+  end
+
+  if adults.to_i > 0
+    find(:xpath, ".//*[@id='flight_search_traveler_groups_adults_input']/a").click
+    find(:xpath, "html/body/ul[7]/li/a[text()='#{adults.to_i}']").click
+  end
+
+  if children.to_i > 0
+    find(:xpath, ".//*[@id='flight_search_traveler_groups_child_count_input']/a").click
+    find(:xpath, "html/body/ul[9]/li/a[text()='#{children.to_i}']").click
+  end
+end

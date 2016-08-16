@@ -8,6 +8,7 @@ class URL
   @@url['facebook']['url'] = "https://www.facebook.com/"
   @@url['gmail']['url'] = "https://www.gmail.com/"
   @@url['linkedin']['url'] = "https://www.linkedin.com/"
+  @@url['flights']['url'] = "https://www.amextravel.com/flight_searches/new"
 
   def getUrl(website)
     @@url[website]['url']

@@ -21,7 +21,7 @@ end
 =end
 
 # Browsers: IE, CH, FF, SA
-$browser = 'CH'
+$browser = 'FF'
 
 Capybara.default_driver = :selenium
 Capybara.javascript_driver = :webkit  #:chrome

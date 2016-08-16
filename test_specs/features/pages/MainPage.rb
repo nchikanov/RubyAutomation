@@ -29,6 +29,26 @@ class MainPage < SitePrism::Page
   element :search_bar, :xpath, "//*[@id='lst-ib' or @id='sb_form_q' or @id='search_form_input_homepage']"
   element :nina_search, :xpath, "//*[@id='sblsbb' or @id='sb_form_go' or @id='search_button_homepage']"
 
+  #AmexTravel Flight
+  element :round_trip, :xpath, ".//*[@id='flight_search_trip_type_input']/fieldset/ol/li[1]/label/span"
+  element :one_way, :xpath, ".//*[@id='flight_search_trip_type_input']/fieldset/ol/li[2]/label/span"
+  element :multi_city, :xpath, ".//*[@id='flight_search_trip_type_input']/fieldset/ol/li[3]/label/span"
+  element :dest_travel, :xpath, ".//*[@id='flight_search_flight_search_slices_attributes_0_departure_search_for']"
+  element :arriv_travel, :xpath, ".//*[@id='flight_search_flight_search_slices_attributes_0_arrival_search_for']"
+  element :dep_date, :xpath, ".//*[@id='flight_search_flight_search_slices_attributes_0_departure_date']"
+  element :dep_time, :xpath, ".//*[@id='flight_search_flight_search_slices_attributes_0_departure_hour_range_input']/a/span[1]"
+  element :ret_date, :xpath, ".//*[@id='flight_search_flight_search_slices_attributes_1_departure_date']"
+  element :ret_time, :xpath, ".//*[@id='flight_search_flight_search_slices_attributes_1_departure_hour_range_input']/a"
+  element :nonstop, :xpath, ".//*[@id='flight_search_nonstop_only_input']/label/span"
+  element :search_flights, :xpath, ".//*[@id='new_flight_search']/fieldset[13]/ol/li[1]/input"
+
+  # region Date Picker - used for AmexTravel Flight
+  element :datepickercurrentyear_label, :xpath, ".//*[@id='ui-datepicker-div']//span[@class='ui-datepicker-year']"
+  element :datepickercurrentmonth_label, :xpath, ".//*[@id='ui-datepicker-div']//span[@class='ui-datepicker-month']"
+  element :datepickernext_button, :xpath, ".//*[@id='ui-datepicker-div']//a[@title='Next']"
+  element :datepickerprevious_button, :xpath, ".//*[@id='ui-datepicker-div']//a[@title='Prev']"
+  # endregion
+
   element :reset_user_link, :xpath, '//*[@id="loginForm"]/div[1]/a'
   element :reset_password_link, :xpath, '//*[@id="loginForm"]/div[2]/a'
   element :reset_username_link, :xpath, "//*[@id='loginForm']/div[1]/a"
@@ -955,13 +975,6 @@ class MainPage < SitePrism::Page
   element :availablecommunitiessubmit_button, :xpath, ".//*[@id='communityShareIdeasForm']//a[span[text()='Submit']]"
   # endregion
 
-  # region Date Picker
-  element :datepickercurrentyear_label, :xpath, ".//*[@id='ui-datepicker-div']//span[@class='ui-datepicker-year']"
-  element :datepickercurrentmonth_label, :xpath, ".//*[@id='ui-datepicker-div']//span[@class='ui-datepicker-month']"
-  element :datepickernext_button, :xpath, ".//*[@id='ui-datepicker-div']//a[@title='Next']"
-  element :datepickerprevious_button, :xpath, ".//*[@id='ui-datepicker-div']//a[@title='Prev']"
-  # endregion
-
   #region Communities variables
   element :advancedfilter_link, :xpath, "//*[@id='filterToggleLink']/span"
   element :addnewattribute_button, :xpath, ".//a[@title='Add New Attribute']"
@@ -1760,6 +1773,12 @@ class MainPage < SitePrism::Page
       when 'search' then
         search_bar.set value
 
+      #AmexTravel Flight
+      when 'departure' then
+        dest_travel.set value
+      when 'arrival' then
+        arriv_travel.set value
+
       #Idea template editor
       when 'Text field - Label' then
         textfield_label.set value
@@ -2113,6 +2132,26 @@ class MainPage < SitePrism::Page
       #Nina Search Engine
       when 'search' then
         nina_search.click
+
+        #AmexTravelFlight
+      when 'round trip' then
+        round_trip.click
+      when 'one way' then
+        one_way.click
+      when 'multi city' then
+        multi_city.click
+      when 'departure date' then
+        dep_date.click
+      when 'departure time' then
+        dep_time.click
+      when 'return date' then
+        ret_date.click
+      when 'return time' then
+        ret_time.click
+      when 'nonstop flight' then
+        nonstop.click
+      when 'search flights' then
+        search_flights.click
 
       when 'Change Password Submit' then
         submitchangepassword_button.click
@@ -4422,6 +4461,17 @@ class MainPage < SitePrism::Page
         find(:xpath, ".//ul[@class='auto-list']/li[contains(text(),'#{item}')]").click
       when 'Post reply user autosuggest' then
         find(:xpath, ".//ul[@class='auto-list']/li[contains(text(),'#{item}')]").click
+      when 'airport1' then
+        find(:xpath, "html/body/ul[19]/li[1]/a[contains(text(), '#{item}')]").click
+      when 'airport2' then
+        find(:xpath, "html/body/ul[20]/li[1]/a[contains(text(), '#{item}')]").click
+      when 'dept time' then
+        find(:xpath, "html/body/ul/li/a[text()='#{item}']").click
+      when 'ret time' then
+        find(:xpath, "html/body/ul/li/a[text()='#{item}']").click
+      when 'fare class' then
+        find(:xpath, "html/body/ul[18]/li/a[text()='#{item}']").click
     end
   end
+
 end
