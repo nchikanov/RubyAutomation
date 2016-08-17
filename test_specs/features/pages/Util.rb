@@ -68,13 +68,30 @@ class Util < SitePrism::Page
 
     case element
       when 'Total Passengers' then
-        fail(ArgumentError.new('Passenger total does not match original serach')) if has_no_xpath?(".//*[@id='summary-form']/div[3]/div[7]/div/div[1]/div[1]/div[1]/span[1][text()='#{input}']")
+        fail(ArgumentError.new('Passenger total does not match original search')) if has_no_xpath?(".//*[@id='summary-form']/div/div/div/div/div/div/span[text()='#{input}']")
       when 'Class Type' then
-        fail(ArgumentError.new('Class type does not match original search')) if has_no_xpath?(".//*[@id='summary-form']/div[3]/div[7]/div/div[2]/ol/a/span[text()='#{input}']")
+        fail(ArgumentError.new('Class type does not match original search')) if has_no_xpath?(".//*[@id='summary-form']/div/div/div/div/ol/a/span[text()='#{input}']")
       when 'Departure Airport' then
         fail(ArgumentError.new('Departure airport does not match original search')) if has_no_xpath?(".//*[@id='departure']/div[1]/div[1]/div[contains(text(),'#{input}')]")
       when 'Arrival Airport' then
         fail(ArgumentError.new('Departure airport does not match original search')) if has_no_xpath?(".//*[@id='departure']/div[2]/div[1]/div[contains(text(), '#{input}')]")
+      when 'Airport 1 From' then
+        fail(ArgumentError.new('First departure airport does not match original search')) if has_no_xpath?(".//*[@id='_iz']/div/div/div/div/table/tbody/tr[1]/td/span[1][contains(text(), '#{input}')]")
+      when 'Airport 1 To' then
+        fail(ArgumentError.new('First arrival airport does not match original search')) if has_no_xpath?(".//*[@id='_iz']/div/div/div/div/table/tbody/tr[1]/td/span[3][contains(text(), '#{input}')]")
+      when 'Airport 2 From' then
+        fail(ArgumentError.new('Second departure airport does not match original search')) if has_no_xpath?(".//*[@id='_iz']/div/div/div/div/table/tbody/tr[2]/td/span[1][contains(text(), '#{input}')]")
+      when 'Airport 2 To' then
+        fail(ArgumentError.new('Second arrival airport does not match original search')) if has_no_xpath?(".//*[@id='_iz']/div/div/div/div/table/tbody/tr[2]/td/span[3][contains(text(), '#{input}')]")
+      when 'Airport 3 From' then
+        fail(ArgumentError.new('Third departure airport does not match original search')) if has_no_xpath?(".//*[@id='_iz']/div/div/div/div/table/tbody/tr[3]/td/span[1][contains(text(), '#{input}')]")
+      when 'Aiport 3 To' then
+        fail(ArgumentError.new('Third arrival airport does not match original search')) if has_no_xpath?(".//*[@id='_iz']/div/div/div/div/table/tbody/tr[1]/td/span[3][contains(text(), '#{input}')]")
+      when 'Multi Class Type' then
+        fail(ArgumentError.new('Class type does not match original search')) if has_no_xpath?(".//*[@id='_iz']/div/div/div/div/div/span[2][contains(text(), '#{input}')]")
+      when 'Multi Total Passengers' then
+        fail(ArgumentError.new('Passenger total does not match original search')) if has_no_xpath?(".//*[@id='_iz']/div/div/div/div/div/span[2][contains(text(), '#{input}')]")
+
     end
   end
 

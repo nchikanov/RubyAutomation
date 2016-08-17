@@ -36,11 +36,14 @@ class MainPage < SitePrism::Page
   element :dest_travel, :xpath, ".//*[@id='flight_search_flight_search_slices_attributes_0_departure_search_for']"
   element :arriv_travel, :xpath, ".//*[@id='flight_search_flight_search_slices_attributes_0_arrival_search_for']"
   element :dep_date, :xpath, ".//*[@id='flight_search_flight_search_slices_attributes_0_departure_date']"
+  element :dep_date_2, :xpath, ".//*[@id='flight_search_flight_search_slices_attributes_1_departure_date']"
+  element :dep_date_3, :xpath, ".//*[@id='flight_search_flight_search_slices_attributes_2_departure_date']"
   element :dep_time, :xpath, ".//*[@id='flight_search_flight_search_slices_attributes_0_departure_hour_range_input']/a/span[1]"
   element :ret_date, :xpath, ".//*[@id='flight_search_flight_search_slices_attributes_1_departure_date']"
   element :ret_time, :xpath, ".//*[@id='flight_search_flight_search_slices_attributes_1_departure_hour_range_input']/a"
   element :nonstop, :xpath, ".//*[@id='flight_search_nonstop_only_input']/label/span"
   element :search_flights, :xpath, ".//*[@id='new_flight_search']/fieldset[13]/ol/li[1]/input"
+  element :when_go, :xpath, ".//*[@id='flight_search_flight_search_slices_attributes_0_departure_hour_range_input']/a/span[1]"
 
   # region Date Picker - used for AmexTravel Flight
   element :datepickercurrentyear_label, :xpath, ".//*[@id='ui-datepicker-div']//span[@class='ui-datepicker-year']"
@@ -1778,6 +1781,8 @@ class MainPage < SitePrism::Page
         dest_travel.set value.upcase
       when 'arrival' then
         arriv_travel.set value.upcase
+      when 'When are you going' then
+        when_go.set value
 
       #Idea template editor
       when 'Text field - Label' then
@@ -2142,6 +2147,10 @@ class MainPage < SitePrism::Page
         multi_city.click
       when 'departure date' then
         dep_date.click
+      when 'departure date 2' then
+        dep_date_2.click
+      when 'departure date 3' then
+        dep_date_3.click
       when 'departure time' then
         dep_time.click
       when 'return date' then
@@ -4376,12 +4385,12 @@ class MainPage < SitePrism::Page
       end
     end
     #Manage the picker to reach specified month
-    if month.to_i > (months.index(datepickercurrentmonth_label.text)+1)
-      while month.to_i > (months.index(datepickercurrentmonth_label.text)+1) do
+    if month.to_i > (months.index(datepickercurrentmonth_label.text))
+      while month.to_i > (months.index(datepickercurrentmonth_label.text)) do
         datepickernext_button.click
       end
-    elsif month.to_i < (months.index(datepickercurrentmonth_label.text)+1)
-      while month.to_i < (months.index(datepickercurrentmonth_label.text)+1) do
+    elsif month.to_i < (months.index(datepickercurrentmonth_label.text))
+      while month.to_i < (months.index(datepickercurrentmonth_label.text)) do
         datepickerprevious_button.click
       end
     end
