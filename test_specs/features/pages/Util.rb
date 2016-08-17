@@ -64,5 +64,19 @@ class Util < SitePrism::Page
 
   end
 
+  def verifyElementExists(element, input)
+
+    case element
+      when 'Total Passengers' then
+        fail(ArgumentError.new('Passenger total does not match original serach')) if has_no_xpath?(".//*[@id='summary-form']/div[3]/div[7]/div/div[1]/div[1]/div[1]/span[1][text()='#{input}']")
+      when 'Class Type' then
+        fail(ArgumentError.new('Class type does not match original search')) if has_no_xpath?(".//*[@id='summary-form']/div[3]/div[7]/div/div[2]/ol/a/span[text()='#{input}']")
+      when 'Departure Airport' then
+        fail(ArgumentError.new('Departure airport does not match original search')) if has_no_xpath?(".//*[@id='departure']/div[1]/div[1]/div[contains(text(),'#{input}')]")
+      when 'Arrival Airport' then
+        fail(ArgumentError.new('Departure airport does not match original search')) if has_no_xpath?(".//*[@id='departure']/div[2]/div[1]/div[contains(text(), '#{input}')]")
+    end
+  end
+
 
 end

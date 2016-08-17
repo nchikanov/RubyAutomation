@@ -1721,19 +1721,19 @@ Then(/^I select "([^"]*)" option from the "([^"]*)" dropdown menu$/) do |string,
   case field
     when 'first' then
       find(:xpath, ".//*[@id='flight_search_flight_search_slices_attributes_0_departure_search_for']").click
-      @mainpage.selectItemInAutosuggest('airport1', string)
+      @bookflightspage.selectItemInAutosuggest('airport1', string)
     when 'second' then
       find(:xpath, ".//*[@id='flight_search_flight_search_slices_attributes_0_arrival_search_for']").click
-      @mainpage.selectItemInAutosuggest('airport2', string)
+      @bookflightspage.selectItemInAutosuggest('airport2', string)
     when 'dept time' then
       find(:xpath, ".//*[@id='flight_search_flight_search_slices_attributes_0_departure_hour_range_input']/a/span[1]").click
-      @mainpage.selectItemInAutosuggest(field, string)
+      @bookflightspage.selectItemInAutosuggest(field, string)
     when 'ret time' then
       find(:xpath, ".//*[@id='flight_search_flight_search_slices_attributes_1_departure_hour_range_input']/a").click
-      @mainpage.selectItemInAutosuggest(field, string)
+      @bookflightspage.selectItemInAutosuggest(field, string)
     when 'fare class' then
       find(:xpath, ".//*[@id='flight_search_cabin_type_input']/a").click
-      @mainpage.selectItemInAutosuggest(field, string)
+      @bookflightspage.selectItemInAutosuggest(field, string)
   end
 
 
@@ -1741,8 +1741,10 @@ end
 
 And(/^I select a date from the datepicker on the "([^"]*)" section$/) do |date|
   if date == 'dep'
+      @mainpage.clickButton('departure date')
       datetopick = Date.today+7
   elsif date == 'ret'
+    @mainpage.clickButton('return date')
       datetopick = Date.today+30
   else
       datetopick = Date.today

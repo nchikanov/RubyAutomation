@@ -69,6 +69,7 @@ Before do |scenario|
   @loginpage = LoginPage.new
   @users = Users.new
   @util = Util.new
+  @bookflightspage = BookFlightsPage.new
 end
 
 After do |scenario|

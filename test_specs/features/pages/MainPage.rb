@@ -4455,23 +4455,5 @@ class MainPage < SitePrism::Page
     end
   end
 
-  def selectItemInAutosuggest(autosuggestName, item)
-    case autosuggestName
-      when 'Post comment user autosuggest' then
-        find(:xpath, ".//ul[@class='auto-list']/li[contains(text(),'#{item}')]").click
-      when 'Post reply user autosuggest' then
-        find(:xpath, ".//ul[@class='auto-list']/li[contains(text(),'#{item}')]").click
-      when 'airport1' then
-        find(:xpath, "html/body/ul[19]/li[1]/a[contains(text(), '#{item}')]").click
-      when 'airport2' then
-        find(:xpath, "html/body/ul[20]/li[1]/a[contains(text(), '#{item}')]").click
-      when 'dept time' then
-        find(:xpath, "html/body/ul/li/a[text()='#{item}']").click
-      when 'ret time' then
-        find(:xpath, "html/body/ul/li/a[text()='#{item}']").click
-      when 'fare class' then
-        find(:xpath, "html/body/ul[18]/li/a[text()='#{item}']").click
-    end
-  end
 
 end
