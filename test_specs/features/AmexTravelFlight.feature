@@ -22,6 +22,6 @@ Feature: AmexTravel Flight Booking
     # options for "class type" = Economy, Premium Economy, Business Class, First Class
     Examples:
     | booking | type of flight | starting point | airport | ending point | airport2 | DepDate | time     | RetDate | time2    | seniors | adults | children | class type       |
-    | flights | One Way        | SFO            | SFO     | MSP          | MSP      | dep     | 4pm-8pm  | ret     | noon-5pm | 0       | 1      | 2        | Economy          |
+    | flights | Round Trip     | SFO            | SFO     | MSP          | MSP      | dep     | 4pm-8pm  | ret     | noon-5pm | 0       | 1      | 2        | Economy          |
     #| flights | one way        |
     #| flights | multi city     |
