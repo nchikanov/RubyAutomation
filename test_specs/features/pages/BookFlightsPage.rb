@@ -46,6 +46,8 @@ class BookFlightsPage < SitePrism::Page
          find(:xpath, "html/body/ul/li/a[text()='#{item}']").click
        when 'fare class' then
          find(:xpath, "html/body/ul[18]/li/a[text()='#{item}']").click
+       else
+         fail(ArgumentError.new("'#{item}' does not exist!"))
      end
    end
 
@@ -69,8 +71,12 @@ class BookFlightsPage < SitePrism::Page
 
         selectItemInAutosuggest('dept time', value)
 
+     else
+       fail(ArgumentError.new("'#{value}' does not exist!"))
 
    end
+
+
  end
 
   def set2values(element, value1, value2)
