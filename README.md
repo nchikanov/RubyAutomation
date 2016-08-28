@@ -7,4 +7,6 @@ Automation framework for Spigit used as base code - may be some residual lines o
 
 All features written using Cucumber for organization. Step definitions and all classes written in Ruby. 
 
+Some pages needed for complete execution not included (specifically, User and Payment classes) b/c contain sensitive information
+
 
