@@ -9,4 +9,4 @@ All features written using Cucumber for organization. Step definitions and all c
 
 Some pages needed for complete execution not included (specifically, User and Payment classes) b/c contain sensitive information
 
-
+Continuation: https://github.com/nchikanov/RubyAutomation2
